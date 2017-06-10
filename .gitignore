@@ -8,3 +8,4 @@ hypertable/
 tmp/
 gz/
 cmake/
+cmake-3.8.2/

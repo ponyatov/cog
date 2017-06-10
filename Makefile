@@ -112,10 +112,14 @@ packages:
 
 CWD = $(CURDIR)
 .PHONY: cmake
-cmake: tmp/cmake-3.8.2/README
-	cd tmp ; cmake-3.8.2/configure --prefix=$(CWD)/cmake
-tmp/cmake-3.8.2/README: gz/cmake-3.8.2.tar.gz
-	cd tmp ; tar zx < ../$< && touch ../$@
+cmake: cmake-3.8.2/README
+	rm -rf cmake-3.8.2/build ;\
+	mkdir  cmake-3.8.2/build ;\
+	cd     cmake-3.8.2/build ;\
+	../configure --prefix=$(CWD)/cmk 
+#	 && make && make install
+cmake-3.8.2/README: gz/cmake-3.8.2.tar.gz
+	tar zx < $< && touch $@
 gz/cmake-3.8.2.tar.gz:
 	mkdir -p gz tmp ; wget -c -P gz https://cmake.org/files/v3.8/cmake-3.8.2.tar.gz
 	

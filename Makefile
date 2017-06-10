@@ -44,12 +44,14 @@ hypertable: hypertable-update
 	rm -rf hypertable/build ;\
 	mkdir  hypertable/build ;\
 	cd     hypertable/build ;\
-	cmake .. && make -j$(CPU_NUM) && sudo make install
+	cmake .. 
+#	&& make -j$(CPU_NUM) && sudo make install
 
 hypertable-update: hypertable/README.md
 	cd hypertable ; git pull
 
-hypertable-clone:
+hypertable-clone: hypertable/README.md
+hypertable/README.md:
 	git clone --depth=1 git://github.com/hypertable/hypertable.git
 
 ############ opencog ############
@@ -103,4 +105,5 @@ packages:
 		libldap2-dev \
 		krb5-multidev \
 		wordnet wordnet-dev wordnet-sense-index \
-		doxygen
+		doxygen \
+		libdb-dev libghc-statestack-dev

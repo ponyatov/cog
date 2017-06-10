@@ -1,0 +1,60 @@
+#!/bin/sh
+
+PACKAGES_FETCH="
+        python-pip \
+		git \
+			"
+
+PACKAGES_BUILD="
+		build-essential \
+		cmake \
+		cxxtest \
+		rlwrap \
+		guile-2.0-dev \
+		libiberty-dev \
+		libicu-dev \
+		libbz2-dev \
+		cython \
+		python-dev \
+		python-zmq \
+		python-simplejson \
+		libboost-date-time-dev \
+		libboost-filesystem-dev \
+		libboost-math-dev \
+		libboost-program-options-dev \
+		libboost-regex-dev \
+		libboost-serialization-dev \
+		libboost-thread-dev \
+		libboost-system-dev \
+		libboost-random-dev \
+		libzmq3-dev \
+		libtbb-dev \
+		binutils-dev \
+		unixodbc-dev \
+		libpq-dev\
+		uuid-dev \
+		libprotoc-dev \
+		protobuf-compiler \
+		libsdl-gfx1.2-dev \
+		libssl-dev \
+		tcl-dev \
+		tcsh \
+		libfreetype6-dev \
+		libatlas-base-dev \
+		gfortran \
+		gearman \
+		libgearman-dev \
+		ccache \
+		libgsasl7 \
+		libldap2-dev \
+		krb5-multidev \
+		wordnet \
+		wordnet-dev \
+		wordnet-sense-index \
+		"
+
+PACKAGES_DOC="
+		doxygen \
+		"
+
+sudo apt install python-pip $PACKAGES_FETCH $PACKAGES_BUILD $PACKAGES_DOC

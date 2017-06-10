@@ -107,3 +107,15 @@ packages:
 		wordnet wordnet-dev wordnet-sense-index \
 		doxygen \
 		libdb-dev libghc-statestack-dev
+
+############ cmake ############
+
+CWD = $(CURDIR)
+.PHONY: cmake
+cmake: tmp/cmake-3.8.2/README
+	cd tmp ; cmake-3.8.2/configure --prefix=$(CWD)/cmake
+tmp/cmake-3.8.2/README: gz/cmake-3.8.2.tar.gz
+	cd tmp ; tar zx < ../$< && touch ../$@
+gz/cmake-3.8.2.tar.gz:
+	mkdir -p gz tmp ; wget -c -P gz https://cmake.org/files/v3.8/cmake-3.8.2.tar.gz
+	

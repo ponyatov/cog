@@ -5,3 +5,5 @@ cogutils/
 cpprestsdk/
 opencog/
 hypertable/
+tmp/
+gz/

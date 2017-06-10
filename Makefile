@@ -25,6 +25,18 @@ cogutils: cogutils-update
 cogutils-update: cogutils/README.md
 	cd cogutils ; git pull
 
+############ atomspace ############
+
+.PHONY: atomspace atomspace-update
+atomspace: atomspace-update
+	rm -rf atomspace/build ;\
+	mkdir  atomspace/build ;\
+	cd     atomspace/build ;\
+	cmake .. && make -j$(CPU_NUM) && sudo make install
+
+cogutils-update: cogutils/README.md
+	cd cogutils ; git pull
+
 ############ packages ############
 
 .PHONY: packages

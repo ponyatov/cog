@@ -13,12 +13,10 @@ rm -rf $1/build ; mkdir $1/build ; cd $1/build ; pwd
 cmake ..
 }
 
-#update cpprestsdk
 #update cogutils
 #update atomspace
 #update opencog
 
-rebuild cpprestsdk
 #rebuild cogutils
 #rebuild atomspace
 #rebuild opencog

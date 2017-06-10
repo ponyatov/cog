@@ -34,8 +34,36 @@ atomspace: atomspace-update
 	cd     atomspace/build ;\
 	cmake .. && make -j$(CPU_NUM) && sudo make install
 
-cogutils-update: cogutils/README.md
-	cd cogutils ; git pull
+atomspace-update: atomspace/README.md
+	cd atomspace ; git pull
+	
+############ hypertable ############
+
+.PHONY: hypertable hypertable-update hypertable-clone
+hypertable: hypertable-update
+	rm -rf hypertable/build ;\
+	mkdir  hypertable/build ;\
+	cd     hypertable/build ;\
+	cmake .. && make -j$(CPU_NUM) && sudo make install
+
+hypertable-update: hypertable/README.md
+	cd hypertable ; git pull
+
+hypertable-clone:
+	git clone --depth=1 git://github.com/hypertable/hypertable.git
+
+############ opencog ############
+
+.PHONY: opencog opencog-update
+opencog: opencog-update
+	rm -rf opencog/build ;\
+	mkdir  opencog/build ;\
+	cd     opencog/build ;\
+	cmake .. 
+#	&& make -j$(CPU_NUM) && sudo make install
+
+opencog-update: opencog/README.md
+	cd opencog ; git pull
 
 ############ packages ############
 

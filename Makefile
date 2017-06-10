@@ -13,6 +13,18 @@ cpprest: cpprest-update
 cpprest-update: cpprestsdk/README.md
 	cd cpprestsdk ; git pull
 
+############ cogutils ############
+
+.PHONY: cogutils cogutils-update
+cogutils: cogutils-update
+	rm -rf cogutils/build ;\
+	mkdir  cogutils/build ;\
+	cd     cogutils/build ;\
+	cmake .. && make -j$(CPU_NUM) && sudo make install
+
+cogutils-update: cogutils/README.md
+	cd cogutils ; git pull
+
 ############ packages ############
 
 .PHONY: packages

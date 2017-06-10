@@ -13,11 +13,8 @@ rm -rf $1/build ; mkdir $1/build ; cd $1/build ; pwd
 cmake ..
 }
 
-#update cogutils
 #update atomspace
 #update opencog
 
-#rebuild cogutils
 #rebuild atomspace
 #rebuild opencog
-

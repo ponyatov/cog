@@ -4,7 +4,8 @@ CWD = $(CURDIR)
 PREFIX = $(HOME)/opencog
 
 XPATH = PATH=$(CWD)/cmake/bin:$(PATH)
-CMAKE = $(XPATH) $(CWD)/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX)
+MAKE  = $(XPATH) LANG=C make
+CMAKE = $(XPATH) LANG=C $(CWD)/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=$(PREFIX)
 
 #CPU_NUM = `grep processor /proc/cpuinfo|wc -l`
 CPU_NUM = 4
@@ -18,7 +19,7 @@ cogutils: cogutils-update
 	rm -rf cogutils/build ;\
 	mkdir  cogutils/build ;\
 	cd     cogutils/build ;\
-	$(CMAKE) .. && make -j$(CPU_NUM) && make install
+	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
 cogutils-update: cogutils/README.md
 	cd cogutils ; git pull
@@ -31,7 +32,7 @@ atomspace: atomspace-update
 	rm -rf atomspace/build ;\
 	mkdir  atomspace/build ;\
 	cd     atomspace/build ;\
-	$(CMAKE) .. && make -j$(CPU_NUM) && make install
+	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
 atomspace-update: atomspace/README.md
 	cd atomspace ; git pull
@@ -46,12 +47,13 @@ opencog: opencog-update
 	rm -rf opencog/build ;\
 	mkdir  opencog/build ;\
 	cd     opencog/build ;\
-	cmake .. 
-#	&& make -j$(CPU_NUM) && sudo make install
+	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
 opencog-update: opencog/README.md
 	cd opencog ; git pull
-#git clone --depth=1 https://github.com/opencog/opencog.git
+opencog-clone: opencog/README.md
+opencog/README.md:
+	git clone --depth=1 https://github.com/opencog/opencog.git
 
 ######################## OPTIONAL ############################	
 ############ cpprest ############
@@ -87,6 +89,11 @@ hypertable/README.md:
 	git clone --depth=1 git://github.com/hypertable/hypertable.git
 
 ############ packages ############
+
+.PHONY: deb
+deb:
+	sudo apt install \
+		dh-make
 
 .PHONY: packages
 packages:

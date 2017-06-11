@@ -116,8 +116,8 @@ cmake: cmake-3.8.2/README
 	rm -rf cmake-3.8.2/build ;\
 	mkdir  cmake-3.8.2/build ;\
 	cd     cmake-3.8.2/build ;\
-	../configure --prefix=$(CWD)/cmk 
-#	 && make && make install
+	../configure --prefix=$(CWD)/$@ && make && make install
+
 cmake-3.8.2/README: gz/cmake-3.8.2.tar.gz
 	tar zx < $< && touch $@
 gz/cmake-3.8.2.tar.gz:

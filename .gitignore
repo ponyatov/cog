@@ -4,6 +4,7 @@
 cogutils/
 atomspace/
 opencog/
+external-tools/
 
 tmp/
 gz/

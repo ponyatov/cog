@@ -54,6 +54,16 @@ opencog-update: opencog/README.md
 opencog-clone: opencog/README.md
 opencog/README.md:
 	git clone --depth=1 https://github.com/opencog/opencog.git
+	
+######################## VIZUALIZATION ############################	
+############ glimpse ############
+
+PHONY: glimpse
+glimpse: external-tools
+	cd external-tools/glimpse ; npm install
+	cd $(PREFIX) ; ln -s $(CWD)/external-tools/glimpse glimpse
+external-tools:
+	git clone --depth=1 https://github.com/opencog/external-tools.git
 
 ######################## OPTIONAL ############################	
 ############ cpprest ############
@@ -132,7 +142,8 @@ packages:
 		krb5-multidev \
 		wordnet wordnet-dev wordnet-sense-index \
 		doxygen \
-		libdb-dev libghc-statestack-dev
+		libdb-dev \
+		nodejs-legacy npm
 
 ############ cmake ############
 

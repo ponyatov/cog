@@ -1,17 +1,15 @@
-CPU_NUM = `grep processor /proc/cpuinfo|wc -l`
+
+CWD = $(CURDIR)
+
+PREFIX = $(HOME)/opencog
+
+XPATH = PATH=$(CWD)/cmake/bin:$(PATH)
+CMAKE = $(XPATH) $(CWD)/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX:PATH=$(PREFIX)
+
+#CPU_NUM = `grep processor /proc/cpuinfo|wc -l`
 CPU_NUM = 4
 
-############ cpprest ############
-
-.PHONY: cpprest cpprest-update
-cpprest: cpprest-update
-	rm -rf cpprestsdk/Release/build ;\
-	mkdir  cpprestsdk/Release/build ;\
-	cd     cpprestsdk/Release/build ;\
-	cmake .. && make -j$(CPU_NUM) && sudo make install 
-
-cpprest-update: cpprestsdk/README.md
-	cd cpprestsdk ; git pull
+######################## CORE ############################	
 
 ############ cogutils ############
 
@@ -20,10 +18,11 @@ cogutils: cogutils-update
 	rm -rf cogutils/build ;\
 	mkdir  cogutils/build ;\
 	cd     cogutils/build ;\
-	cmake .. && make -j$(CPU_NUM) && sudo make install
+	$(CMAKE) .. && make -j$(CPU_NUM) && make install
 
 cogutils-update: cogutils/README.md
 	cd cogutils ; git pull
+#git clone --depth=1 https://github.com/opencog/cogutils.git
 
 ############ atomspace ############
 
@@ -32,11 +31,44 @@ atomspace: atomspace-update
 	rm -rf atomspace/build ;\
 	mkdir  atomspace/build ;\
 	cd     atomspace/build ;\
-	cmake .. && make -j$(CPU_NUM) && sudo make install
+	$(CMAKE) .. && make -j$(CPU_NUM) && make install
 
 atomspace-update: atomspace/README.md
 	cd atomspace ; git pull
-	
+atomspace-clone: atomspace/README.md
+atomspace/README.md:
+	git clone --depth=1 git://github.com/opencog/atomspace.git
+
+############ opencog ############
+
+.PHONY: opencog opencog-update
+opencog: opencog-update
+	rm -rf opencog/build ;\
+	mkdir  opencog/build ;\
+	cd     opencog/build ;\
+	cmake .. 
+#	&& make -j$(CPU_NUM) && sudo make install
+
+opencog-update: opencog/README.md
+	cd opencog ; git pull
+#git clone --depth=1 https://github.com/opencog/opencog.git
+
+######################## OPTIONAL ############################	
+############ cpprest ############
+
+.PHONY: cpprest cpprest-update
+cpprest: cpprest-update
+	rm -rf cpprestsdk/Release/build ;\
+	mkdir  cpprestsdk/Release/build ;\
+	cd     cpprestsdk/Release/build ;\
+	$(CMAKE) ..
+
+#	cmake .. && make -j$(CPU_NUM) && sudo make install 
+
+cpprest-update: cpprestsdk/README.md
+	cd cpprestsdk ; git pull
+#git clone --depth=1 https://github.com/Microsoft/cpprestsdk.git
+
 ############ hypertable ############
 
 .PHONY: hypertable hypertable-update hypertable-clone
@@ -53,19 +85,6 @@ hypertable-update: hypertable/README.md
 hypertable-clone: hypertable/README.md
 hypertable/README.md:
 	git clone --depth=1 git://github.com/hypertable/hypertable.git
-
-############ opencog ############
-
-.PHONY: opencog opencog-update
-opencog: opencog-update
-	rm -rf opencog/build ;\
-	mkdir  opencog/build ;\
-	cd     opencog/build ;\
-	cmake .. 
-#	&& make -j$(CPU_NUM) && sudo make install
-
-opencog-update: opencog/README.md
-	cd opencog ; git pull
 
 ############ packages ############
 
@@ -110,7 +129,6 @@ packages:
 
 ############ cmake ############
 
-CWD = $(CURDIR)
 .PHONY: cmake
 cmake: cmake-3.8.2/README
 	rm -rf cmake-3.8.2/build ;\

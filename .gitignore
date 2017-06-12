@@ -5,3 +5,9 @@ gz/
 src/
 build/
 
+bin/
+share/
+doc/
+
+external-tools/
+

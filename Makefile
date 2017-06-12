@@ -59,10 +59,12 @@ opencog/README.md:
 ######################## VIZUALIZATION ############################	
 ############ glimpse ############
 
-PHONY: glimpse
-glimpse: external-tools
+PHONY: glimpse external-tools external-tools-update
+glimpse: external-tools-update
 	cd external-tools/glimpse ; npm install
-	cd $(PREFIX) ; ln -s $(CWD)/external-tools/glimpse glimpse
+#	cd $(PREFIX) ; ln -s $(CWD)/external-tools/glimpse glimpse
+external-tools-update:
+	cd external-tools ; git pull 
 external-tools:
 	git clone --depth=1 https://github.com/opencog/external-tools.git
 

@@ -28,16 +28,14 @@ src/cogutils/README.md:
 
 .PHONY: atomspace atomspace-update
 atomspace: atomspace-update
-	rm -rf atomspace/build ;\
-	mkdir  atomspace/build ;\
-	cd     atomspace/build ;\
-	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
+	rm -rf build ; mkdir build ; cd build ;\
+	$(CMAKE) ../src/$@ && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
-atomspace-update: atomspace/README.md
-	cd atomspace ; git pull
-atomspace-clone: atomspace/README.md
-atomspace/README.md:
-	git clone --depth=1 git://github.com/opencog/atomspace.git
+atomspace-update: src/atomspace/README.md
+	cd src/atomspace ; git pull
+atomspace-clone: src/atomspace/README.md
+src/atomspace/README.md:
+	cd src ; git clone --depth=1 git://github.com/opencog/atomspace.git
 
 ############ opencog ############
 

@@ -19,7 +19,7 @@ all:
 	
 .PHONY: distclean
 distclean:
-	rm -rf bin share lib doc etc
+	rm -rf bin share lib doc etc include
 
 ######################## CORE ############################	
 

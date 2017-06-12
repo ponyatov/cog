@@ -61,8 +61,8 @@ opencog/README.md:
 
 PHONY: glimpse external-tools external-tools-update
 glimpse: external-tools-update
+	ln -s external-tools/glimpse glimpse
 	cd external-tools/glimpse ; npm install
-#	cd $(PREFIX) ; ln -s $(CWD)/external-tools/glimpse glimpse
 external-tools-update:
 	cd external-tools ; git pull 
 external-tools:

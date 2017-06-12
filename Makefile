@@ -9,6 +9,11 @@ CMAKE = $(XPATH) LANG=C $(CWD)/bin/cmake -DCMAKE_INSTALL_PREFIX=$(PREFIX)
 #CPU_NUM = `grep processor /proc/cpuinfo|wc -l`
 CPU_NUM = 4
 
+.PHONY: all
+all:
+	@echo need manual build:
+	@echo make packages deb cmake cogutils atomspace opencog  
+
 ######################## CORE ############################	
 
 ############ cogutils ############
@@ -41,16 +46,16 @@ src/atomspace/README.md:
 
 .PHONY: opencog opencog-update
 opencog: opencog-update
-	rm -rf opencog/build ;\
-	mkdir  opencog/build ;\
-	cd     opencog/build ;\
-	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
+	rm -rf build ; mkdir build ; cd build ;\
+	$(CMAKE) ../src/$@ &&\
+	sed -i 's/\/usr\/local/$${CMAKE_INSTALL_PREFIX}/g' opencog/nlp/sentiment/cmake_install.cmake &&\
+	$(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
-opencog-update: opencog/README.md
-	cd opencog ; git pull
-opencog-clone: opencog/README.md
-opencog/README.md:
-	git clone --depth=1 https://github.com/opencog/opencog.git
+opencog-update: src/opencog/README.md
+	cd src/opencog ; git pull
+opencog-clone: src/opencog/README.md
+src/opencog/README.md:
+	cd src ; git clone --depth=1 https://github.com/opencog/opencog.git
 	
 ######################## VIZUALIZATION ############################	
 ############ glimpse ############

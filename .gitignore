@@ -10,6 +10,7 @@ share/
 doc/
 lib/
 include/
+etc/
 
 external-tools/
 glimpse

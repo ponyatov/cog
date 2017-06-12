@@ -8,6 +8,8 @@ build/
 bin/
 share/
 doc/
+lib/
+include/
 
 external-tools/
 glimpse

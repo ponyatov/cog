@@ -16,9 +16,7 @@ CPU_NUM = 4
 .PHONY: cogutils cogutils-update
 cogutils: cogutils-update
 	rm -rf build ; mkdir build ; cd build ;\
-	echo $(CMAKE) ../src/$@ 
-	
-#	&& $(MAKE) -j$(CPU_NUM) && $(MAKE) install
+	$(CMAKE) ../src/$@ && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
 cogutils-update: src/cogutils/README.md
 	cd src/cogutils ; git pull
@@ -101,6 +99,7 @@ hypertable-clone: hypertable/README.md
 hypertable/README.md:
 	git clone --depth=1 git://github.com/hypertable/hypertable.git
 
+######################## REQUIRED ############################	
 ############ packages ############
 
 .PHONY: deb

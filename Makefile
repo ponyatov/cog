@@ -1,11 +1,10 @@
 
 CWD = $(CURDIR)
+PREFIX = $(CWD)
 
-PREFIX = $(HOME)/opencog
-
-XPATH = PATH=$(CWD)/cmake/bin:$(PATH)
+XPATH = PATH=$(CWD)/bin:$(PATH)
 MAKE  = $(XPATH) LANG=C make
-CMAKE = $(XPATH) LANG=C $(CWD)/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=$(PREFIX)
+CMAKE = $(XPATH) LANG=C $(CWD)/bin/cmake -DCMAKE_INSTALL_PREFIX=$(PREFIX)
 
 #CPU_NUM = `grep processor /proc/cpuinfo|wc -l`
 CPU_NUM = 4
@@ -16,14 +15,16 @@ CPU_NUM = 4
 
 .PHONY: cogutils cogutils-update
 cogutils: cogutils-update
-	rm -rf cogutils/build ;\
-	mkdir  cogutils/build ;\
-	cd     cogutils/build ;\
-	$(CMAKE) .. && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
+	rm -rf build ; mkdir build ; cd build ;\
+	echo $(CMAKE) ../src/$@ 
+	
+#	&& $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
-cogutils-update: cogutils/README.md
-	cd cogutils ; git pull
-#git clone --depth=1 https://github.com/opencog/cogutils.git
+cogutils-update: src/cogutils/README.md
+	cd src/cogutils ; git pull
+cogutils-clone: src/cogutils/README.md
+src/cogutils/README.md:
+	cd src ; git clone --depth=1 https://github.com/opencog/cogutils.git
 
 ############ atomspace ############
 
@@ -148,14 +149,11 @@ packages:
 ############ cmake ############
 
 .PHONY: cmake
-cmake: cmake-3.8.2/README
-	rm -rf cmake-3.8.2/build ;\
-	mkdir  cmake-3.8.2/build ;\
-	cd     cmake-3.8.2/build ;\
-	../configure --prefix=$(CWD)/$@ && make && make install
+cmake: $(CWD)/src/cmake-3.8.2/configure
+	rm -rf build ; mkdir build ; cd build ;\
+	$< --prefix=$(CWD) && $(MAKE) -j$(CPU_NUM) && $(MAKE) install
 
-cmake-3.8.2/README: gz/cmake-3.8.2.tar.gz
-	tar zx < $< && touch $@
-gz/cmake-3.8.2.tar.gz:
+$(CWD)/src/cmake-3.8.2/configure: $(CWD)/gz/cmake-3.8.2.tar.gz
+	cd src ; tar zx < $< && touch $@
+$(CWD)/gz/cmake-3.8.2.tar.gz:
 	mkdir -p gz tmp ; wget -c -P gz https://cmake.org/files/v3.8/cmake-3.8.2.tar.gz
-	

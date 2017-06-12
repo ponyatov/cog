@@ -1,16 +1,7 @@
 *~
 *.swp
 
-cogutils/
-atomspace/
-opencog/
-external-tools/
-
-tmp/
 gz/
-cmake/
-cmake-3.8.2/
-
-cpprestsdk/
-hypertable/
+src/
+build/
 

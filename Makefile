@@ -54,11 +54,10 @@ src/atomspace/README.md:
 .PHONY: opencog opencog-update
 opencog: opencog-update
 	rm -rf build ; mkdir build ; cd build ;\
-	echo $(CMAKE) ../src/$@ 
-#	&&\
-#	sed -i 's/\/usr\/local/$${CMAKE_INSTALL_PREFIX}/g' opencog/nlp/sentiment/cmake_install.cmake &&\
-#	$(MAKE) -j$(CPU_NUM) && $(MAKE) install
-#	sed -i 's/\/usr\/local/${PREFIXX}/g' share/opencog/scm/opencog.scm
+	$(CMAKE) ../src/$@ &&\
+	sed -i 's/\/usr\/local/$${CMAKE_INSTALL_PREFIX}/g' opencog/nlp/sentiment/cmake_install.cmake &&\
+	$(MAKE) -j$(CPU_NUM) && $(MAKE) install
+	sed -i 's/\/usr\/local/${PREFIXX}/g' share/opencog/scm/opencog.scm
 #	sed -i 's/opencog\/atoms\/base/opencog\/base/g' share/opencog/scm/opencog.scm
 
 opencog-update: src/opencog/README.md

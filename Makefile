@@ -15,7 +15,7 @@ CPU_NUM = 4
 .PHONY: all
 all:
 	@echo need manual build:
-	@echo make packages deb cmake cogutils atomspace opencog
+	@echo make packages cogutils atomspace opencog
 	
 .PHONY: distclean
 distclean:
